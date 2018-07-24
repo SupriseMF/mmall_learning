@@ -7,7 +7,7 @@
 因此，我也是花了较多的时间学习该课程，并跟着讲师一步一步打代码，由于没人指导，遇到问题全靠自己调环境，百度谷歌找解答，一步一步尝试并解决问题。
 
 ## 项目概述
-### 陆续我会在我的GitHub Pages个人静态博客https://suprisemf.github.io中给出我的十分详细项目笔记。
+### 陆续我会在我的GitHub Pages个人静态博客https://suprisemf.github.io 中给出我的十分详细项目笔记。
 
 通过Spring、SpringMVC、Mybatis三大框架，打造出小型电商网站。其中包括多个模块：
 * 用户模块
