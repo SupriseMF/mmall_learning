@@ -181,7 +181,7 @@
 
 
 
-        <!-- mybatis pager -->
+        <!-- mybatis pager 动态分页：AOP方式，在执行SQL时在其后进行分页处理，此时pagehelper监听切面，并再次执行SQL实现分页-->
 
         <dependency>
             <groupId>com.github.pagehelper</groupId>

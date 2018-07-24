@@ -176,4 +176,53 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--返回的是product的list，故使用不了resultType，而是resultMap；由于无参数，parameterType不写-->
+  <!--由于使用pagehelper工具，其AOP监听SQL语句，并在其后添加limit、offset等附加的查询信息，因此SQL语句最后的分号（可加可不加）必须不加，否则执行不了附加的查询信息-->
+  <select id="selectList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from mmall_product
+    order by id asc
+  </select>
+
+  <!--SQL进化版：如果productName为null，则SQL中无where条件，故需在前硬编码true条件：where 1 = 1-->
+  <!--where 1 = 1-->
+  <!--<if test="productName != null">-->
+  <!--and name like #{productName}-->
+  <!--</if>-->
+  <!--<if test="productId != null">-->
+  <!--and id  = #{productId}-->
+  <!--</if>-->
+  <!--但是Mybatis自带where标签，原理为：该语句进行query时where标签将其内部的查询条件的第一个and替换为where-->
+  <select id="selectByNameAndProductId" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from mmall_product
+    <where>
+      <if test="productName != null">
+        and name like #{productName}
+      </if>
+      <if test="productId != null">
+        and id  = #{productId}
+      </if>
+    </where>
+  </select>
+
+  <!--其中的foreach和与java中类似，遍历其collection中的item-->
+  <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from mmall_product
+    where status = 1
+    <if test="productName != null">
+      and name like #{productName}
+    </if>
+    <if test="categoryIdList != null">
+      and category_id in 
+      <foreach item="item" index="index" open="(" separator="," close=")" collection="categoryIdList">
+        #{item}
+      </foreach>
+    </if>
+  </select>
 </mapper>
